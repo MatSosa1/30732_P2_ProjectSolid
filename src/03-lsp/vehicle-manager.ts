@@ -7,39 +7,76 @@
  * de cada marca para poder operar, rompiendo la transparencia de la abstracción.
  */
 
-export class Tesla { constructor(public model: string) {} }
-export class Audi  { constructor(public model: string) {} }
-export class Toyota{ constructor(public model: string) {} }
-export class Honda { constructor(public model: string) {} }
-export class Ford  { constructor(public model: string) {} }
+export interface Car {
+    getVehicleModel(): string;
+    getVehicleDetails(): string;
+}
+
+export class Tesla implements Car {
+    constructor() {}
+
+    getVehicleModel(): string {
+        return 'Tesla';
+    }
+
+    getVehicleDetails(): string {
+        return `${this.getVehicleModel()}, Carga eléctrica al 100%`
+    }
+}
+
+export class Audi implements Car {
+    constructor() {}
+
+    getVehicleModel(): string {
+        return 'Audi';
+    }
+
+    getVehicleDetails(): string {
+        return `${this.getVehicleModel()}, Tracción Quattro activada`
+    }
+}
+
+export class Toyota implements Car {
+    constructor() {}
+
+    getVehicleModel(): string {
+        return 'Toyota';
+    }
+
+    getVehicleDetails(): string {
+        return `${this.getVehicleModel()}, Motor híbrido listo`
+    }
+}
+
+export class Honda implements Car {
+    constructor() {}
+
+    getVehicleModel(): string {
+        return 'Honda';
+    }
+
+    getVehicleDetails(): string {
+        return `${this.getVehicleModel()}, VTEC activado`
+    }
+}
+
+export class Ford implements Car {
+    constructor() {}
+
+    getVehicleModel(): string {
+        return 'Ford';
+    }
+
+    getVehicleDetails(): string {
+        return `${this.getVehicleModel()}, Built Tough`
+    }
+}
+
 
 export class VehicleManager {
-
-    /**
-     * VIOLACIÓN: Este método rompe LSP y OCP. 
-     * Si agregamos una nueva marca (ej. Volvo), debemos venir aquí a agregar otro 'if' o 'case'.
-     * Además, no podemos tratar a todos los vehículos por igual.
-     */
-    static printVehicleDetails( vehicles: (Tesla | Audi | Toyota | Honda | Ford)[] ) {
-        
+    static printVehicleDetails( vehicles: Car[] ) {
         vehicles.forEach( vehicle => {
-
-            if( vehicle instanceof Tesla ) {
-                console.log('Tesla Model:', vehicle.model, 'Carga eléctrica al 100%');
-            }
-            if( vehicle instanceof Audi ) {
-                console.log('Audi Model:', vehicle.model, 'Tracción Quattro activada');
-            }
-            if( vehicle instanceof Toyota ) {
-                console.log('Toyota Model:', vehicle.model, 'Motor híbrido listo');
-            }
-            if( vehicle instanceof Honda ) {
-                console.log('Honda Model:', vehicle.model, 'VTEC activado');
-            }
-            if( vehicle instanceof Ford ) {
-                console.log('Ford Model:', vehicle.model, 'Built Tough');
-            }
-
+            console.log(vehicle.getVehicleDetails());
         });
     }
 
