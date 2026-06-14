@@ -3,7 +3,11 @@
  * DATA PROVIDER ACUPLADO
  */
 
-export class LocalDatabaseService {
+export interface DatabaseService {
+    getFakePosts(): Promise<Array<{id: number, title: string, body: string}>>;
+}
+
+export class LocalDatabaseService implements DatabaseService {
     async getFakePosts() {
         return [
             { id: 1, title: 'Avistamiento de Jaguar', body: 'Se reportó un jaguar cerca del río.' },
@@ -12,7 +16,7 @@ export class LocalDatabaseService {
     }
 }
 
-export class JsonDatabaseService {
+export class JsonDatabaseService implements DatabaseService  {
     async getFakePosts() {
         return [
             { id: 1, title: 'JSON Post 1', body: 'Contenido desde JSON' }
